@@ -1,0 +1,20 @@
+# Uploading flow
+
+
+Upload File 
+  ↓
+Router (along with protected route)
+  ↓
+Validate using zod schema
+  ↓
+Multer
+  ↓
+req.file.buffer
+  ↓
+uploadToDrive(file)
+  ↓
+Google Drive
+  ↓
+{create object/entry}
+  ↓
+Save metadata in PostgreSQL

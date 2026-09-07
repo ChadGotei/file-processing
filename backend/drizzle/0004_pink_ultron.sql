@@ -1,0 +1,1 @@
+ALTER TABLE "files" ADD COLUMN "orignal_filename" varchar(255);
