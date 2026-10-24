@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { deleteSingleFile, getAllUserFiles, getDownloadSingleFile, getSingleFile, renameSingleFile, uploadFile } from "../controllers/files.controller";
+import { compressFile, deleteSingleFile, getAllUserFiles, getDownloadSingleFile, getSingleFile, renameSingleFile, uploadFile } from "../controllers/files.controller";
 import { protectedRoute } from "../middlewares/auth.middleware";
 import { upload } from "../middlewares/upload.middleware";
 import { validate } from "../middlewares/validate.middleware";
@@ -17,6 +17,7 @@ router.post("/upload-file",
 
 router.get("/my-files", protectedRoute, getAllUserFiles);
 
+router.post("/:fileId/compress", protectedRoute, validate(fileSchema.compressImageSchema), compressFile);
 
 router.route("/:fileId")
     .get(protectedRoute, validateFileId, getDownloadSingleFile)
@@ -25,5 +26,6 @@ router.route("/:fileId")
     .patch(protectedRoute, validateFileId, validate(fileSchema.uploadFileSchema), renameSingleFile)
 
 router.get("/:fileId/res", protectedRoute, getSingleFile);
+
 
 export default router;

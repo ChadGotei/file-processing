@@ -80,3 +80,29 @@ export const renameFilenameFromDrive = async (driveFileId: string, newFileName: 
         },
     )
 }
+
+
+// upload to drive via buffer
+export const uploadToDriveViaBuffer = async (
+    buffer: Buffer,
+    fileName: string,
+    mimeType: string
+) => {
+
+    const response = await drive.files.create({
+
+        requestBody: {
+            name: fileName,
+            parents: [env.drive_folder_id]
+        },
+
+        media: {
+            body: Readable.from(buffer),
+            mimeType
+        },
+
+        fields: "id, name, mimeType, size",
+    });
+
+    return response.data;
+};

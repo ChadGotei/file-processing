@@ -1,6 +1,6 @@
 import { asyncHandler } from "../utils/asyncHandler";
 import { AppError } from "../errors/AppError";
-import { deleteSingleUserFile, getSingleUserFile, getUserFiles, renameSingleUserFile, uploadFileService } from "../services/file.services";
+import { compressSingleFile, deleteSingleUserFile, getSingleUserFile, getUserFiles, renameSingleUserFile, uploadFileService } from "../services/file.services";
 import { downloadFromDrive } from "../services/googleDrive.services";
 import { getFileExtension } from "../utils/misc";
 import { getPagination } from "../utils/pagination";
@@ -121,3 +121,15 @@ export const renameSingleFile = asyncHandler(async (req, res) => {
         data: response
     });
 });
+
+
+export const compressFile = asyncHandler(async (req, res) => {
+    const body = req.body;
+
+    const response = await compressSingleFile(+req.params.fileId, req.user!.id, body.quality, body?.format ?? undefined);
+
+    res.status(200).json({
+        message: "File compressesed successfully",
+        data: response
+    })
+})

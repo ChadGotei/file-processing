@@ -10,6 +10,7 @@ export const generateToken = (userId: number) => {
         secret,
         {
             expiresIn: expiresIn,
+            // algorithm: "HS256"
         }
     );
 };
